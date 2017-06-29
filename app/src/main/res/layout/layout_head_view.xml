@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:background="@color/colorAccent"
+        android:background="@android:color/holo_orange_dark"
         android:gravity="center"
         android:text="我是来组成头布局"
         android:textColor="@android:color/white"

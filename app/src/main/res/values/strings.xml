@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WRecyclerView</string>
+    <string name="title_activity_head_footer">HeadFooterActivity</string>
 </resources>

@@ -1,50 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.wsj.wrecyclerview.MainActivity">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <Button
+        android:id="@+id/head_footer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:text="Head_And_Footer"/>
 
     <Button
-        android:id="@+id/add_header"
-        android:layout_width="wrap_content"
+        android:id="@+id/multi_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="添加头布局"/>
-
-    <Button
-        android:id="@+id/re_header_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/add_header"
-        android:layout_alignParentRight="true"
-        android:text="删除头布局"/>
+        android:text="多条目类型"/>
 
 
     <Button
-        android:id="@+id/add_footer"
-        android:layout_width="wrap_content"
+        android:id="@+id/section_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/re_header_header"
-        android:layout_alignParentRight="true"
-        android:text="添加footer布局"/>
+        android:text="分组布局"/>
 
     <Button
-        android:id="@+id/remove_footer"
-        android:layout_width="wrap_content"
+        android:id="@+id/empty_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/add_footer"
-        android:layout_alignParentRight="true"
-        android:text="删除footer布局"/>
+        android:text="Empty布局"/>
 
-</RelativeLayout>
+</LinearLayout>

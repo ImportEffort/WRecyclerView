@@ -1,6 +1,7 @@
 package com.example.wsj.wrecyclerview.entites;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+import com.example.wsj.recyclerviewhelper.entities.MultiItemEntity;
 
 /**
  * Created by wangshijia on 2017/6/28 上午11:42.
