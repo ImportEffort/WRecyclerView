@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f5f6fa">
+
+
+    <RelativeLayout
+        android:background="#f5f6fa"
+        android:id="@+id/load_more_loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/load_progress"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/progressbar"
+            android:indeterminateDuration="700"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="#f5f6fa"
+        android:id="@+id/load_more_load_fail_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/tv_load_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="3dp"
+            android:text="加载失败"
+            android:textColor="#adadad"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="#f5f6fa"
+        android:id="@+id/load_more_load_end_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="3dp"
+            android:text="我是有底线的"
+            android:textColor="#adadad"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/load_more_load_empty_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:visibility="invisible"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:textColor="#adadad"-->
+            <!--android:textSize="12sp"/>-->
+    <!--</RelativeLayout>-->
+
+</RelativeLayout>
