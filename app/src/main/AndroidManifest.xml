@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".activities.EmptyActivity">
         </activity>
+        <activity android:name=".activities.RrefreshALoadMoreActivity">
+        </activity>
     </application>
 
 </manifest>

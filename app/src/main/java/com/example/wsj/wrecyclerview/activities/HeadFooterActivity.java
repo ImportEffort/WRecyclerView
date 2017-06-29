@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.wsj.recyclerviewhelper.adapter.BaseQuickAdapter;
+import com.example.wsj.recyclerviewhelper.base.BaseViewHolder;
+import com.example.wsj.recyclerviewhelper.itemDecoration.BaseItemDecoration;
+import com.example.wsj.recyclerviewhelper.itemDecoration.Divide;
+import com.example.wsj.recyclerviewhelper.itemDecoration.DivideBuilder;
 import com.example.wsj.recyclerviewhelper.itemDecoration.NoHeadFooterLineDecoration;
 import com.example.wsj.recyclerviewhelper.listener.OnItemClickListener;
 import com.example.wsj.wrecyclerview.R;
@@ -55,6 +59,9 @@ public class HeadFooterActivity extends AppCompatActivity implements View.OnClic
                 Toast.makeText(HeadFooterActivity.this, "我是一个头布局", Toast.LENGTH_SHORT).show();
             }
         });
+
+        initRvHeaderView();
+
         mAdapter.addHeadView(headerView);
         View footerView = LayoutInflater.from(this).inflate(R.layout.layout_footer_view, null);
         footerView.setOnClickListener(new View.OnClickListener() {
@@ -76,9 +83,38 @@ public class HeadFooterActivity extends AppCompatActivity implements View.OnClic
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    private void initRvHeaderView() {
+        View rvHeaderView = LayoutInflater.from(this).inflate(R.layout.layout_rv_head_view, null);
+        RecyclerView recyclerView = (RecyclerView) rvHeaderView.findViewById(R.id.recyclerView_h);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        BaseQuickAdapter<String> adapter = new BaseQuickAdapter<String>(this, R.layout.simlpe_h_layout_item, getDates()) {
+            @Override
+            public void convert(BaseViewHolder holder, String item, int position) {
+                holder.setText(R.id.textView, item);
+            }
+        };
+        recyclerView.addItemDecoration(new BaseItemDecoration(this) {
+            @Override
+            public Divide getDivider(int itemPosition, int itemCount) {
+                DivideBuilder divideBuilder = new DivideBuilder();
+                divideBuilder.setLeftSideLine(true,Color.parseColor("#ffffff"),2,0,0);
+                divideBuilder.setBottomSideLine(true,Color.parseColor("#ffffff"),2,0,0);
+                divideBuilder.setTopSideLine(true,Color.parseColor("#ffffff"),2,0,0);
+                divideBuilder.setRightSideLine(true,Color.parseColor("#ffffff"),2,0,0);
+                return divideBuilder.build();
+            }
+        });
+        recyclerView.setAdapter(adapter);
+
+        mAdapter.addHeadView(rvHeaderView);
+    }
+
     private List<String> getDates() {
         List<String> items = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             items.add("我是条目" + i);
         }
         return items;

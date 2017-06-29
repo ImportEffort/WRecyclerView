@@ -30,4 +30,10 @@
         android:layout_height="wrap_content"
         android:text="Empty布局"/>
 
+    <Button
+        android:id="@+id/load_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="刷新与上拉"/>
+
 </LinearLayout>

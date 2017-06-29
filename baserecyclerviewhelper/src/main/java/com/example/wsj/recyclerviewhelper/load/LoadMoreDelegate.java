@@ -2,6 +2,9 @@ package com.example.wsj.recyclerviewhelper.load;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.wsj.recyclerviewhelper.adapter.BaseQuickAdapter;
 import com.example.wsj.recyclerviewhelper.listener.LoadMoreListener;
@@ -31,7 +34,25 @@ public class LoadMoreDelegate {
 
     private void initLoadMore() {
         if (mRecyclerView != null) {
+            loadMoreEnable = true;
             mRecyclerView.addOnScrollListener(new LoadMoreScrollListener());
+            mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+                int downY = 0;
+                int moveY;
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            downY = (int) event.getY();
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            moveY = (int) event.getY();
+                            loadMoreEnable = moveY - downY <= 0;
+                            break;
+                    }
+                    return false;
+                }
+            });
         } else {
             throw new RuntimeException("recyclerView need not null");
         }
@@ -39,18 +60,19 @@ public class LoadMoreDelegate {
 
 
     private class LoadMoreScrollListener extends RecyclerView.OnScrollListener {
-
         private int lastItemPosition;
         private LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
 
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            if (loadMoreEnable
+            int visibleItemCount = recyclerView.getChildCount();
+            if (getLoadMoreEnable()
                     && lastItemPosition + 1 == mAdapter.getItemCount()
                     && newState == RecyclerView.SCROLL_STATE_IDLE
                     && canScrollNotFullScreen()
-                    && !isLoading) {
+                    && !isLoading
+                    && visibleItemCount > 0) {
                 startLoading();
             }
 
@@ -63,6 +85,7 @@ public class LoadMoreDelegate {
             listScrollY = dy;
         }
     }
+
 
     public void startLoading() {
         if (mLoadMoreListener != null) {
@@ -99,10 +122,15 @@ public class LoadMoreDelegate {
         this.enableNoFullScreenLoadMore = enableNoFullScreenLoadMore;
     }
 
-    private boolean loadMoreEnable = true;
+    private boolean loadMoreEnable = false;
 
-    public void setLoadMoreEnable(boolean loadMoreEnable) {
-        this.loadMoreEnable = loadMoreEnable;
+    public void setLoadMoreEnable(boolean enable) {
+        this.loadMoreEnable = enable;
+    }
+
+
+    public boolean getLoadMoreEnable() {
+        return loadMoreEnable;
     }
 
     private boolean canScrollNotFullScreen() {

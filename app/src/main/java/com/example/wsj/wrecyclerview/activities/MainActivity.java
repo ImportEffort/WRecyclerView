@@ -20,8 +20,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addFooter.setOnClickListener(this);
         Button removeHeader = (Button) findViewById(R.id.multi_layout);
         Button removeFooter = (Button) findViewById(R.id.empty_layout);
+        Button loadRefresh = (Button) findViewById(R.id.load_refresh);
         removeHeader.setOnClickListener(this);
         removeFooter.setOnClickListener(this);
+        loadRefresh.setOnClickListener(this);
     }
 
     @Override
@@ -39,7 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.empty_layout:
                 gotoEmptyActivity();
                 break;
+            case R.id.load_refresh:
+                gotoLoadARefresh();
+                break;
         }
+    }
+
+    private void gotoLoadARefresh() {
+        startActivity(new Intent(this,RrefreshALoadMoreActivity.class));
     }
 
     private void gotoEmptyActivity() {

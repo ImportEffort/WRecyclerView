@@ -26,7 +26,8 @@ import java.util.List;
  * Copyright (c) 2017. alpha, Inc. All rights reserved.
  */
 
-public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> implements ItemViewDelegate<T> {
+public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>
+        implements ItemViewDelegate<T> {
 
     private final static int HEADER = 0x100001;
     private final static int FOOTER = 0x100004;
@@ -132,8 +133,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
             int adjPosition = position - headerLayoutCount;
             int adapterCount = mDates.size();//计算条目个数
             if (adjPosition < adapterCount) {
-                Log.e(TAG, "adapterCount    " + adapterCount);
-                Log.e(TAG, "adjPosition    " + adjPosition);
+//                Log.e(TAG, "adapterCount    " + adapterCount);
+//                Log.e(TAG, "adjPosition    " + adjPosition);
                 return getNormalItemType(adjPosition);
             } else {
                 adjPosition = adjPosition - adapterCount;
@@ -309,7 +310,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     }
 
     private int getLoadMoreFooterCount() {
-        if (mLoadMoreView == null || !loadMoreEnable) {
+        if (mLoadMoreView == null || !loadMoreEnable) {// !loadMoreEnable
             return 0;
         }
         return 1;
@@ -442,6 +443,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public void setEnableLoadMore(boolean enableLoadMore) {
         this.loadMoreEnable = enableLoadMore;
         if (mLoadMoreDelegate != null) {
+            Log.e(TAG, "setEnableLoadMore" + enableLoadMore);
             mLoadMoreDelegate.setLoadMoreEnable(enableLoadMore);
         }
     }
@@ -483,4 +485,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     }
 
 
+    public void setNewDates(List<T> dates) {
+        mDates.clear();
+        mDates.addAll(dates);
+        notifyDataSetChanged();
+    }
 }
