@@ -28,7 +28,6 @@ public abstract class BaseMultiQuickAdapter<T extends MultiItemEntity> extends B
 
     @Override
     public int getNormalItemType(int position) {
-        Log.e(TAG, "pos    " + position);
         T t = mDates.get(position);
         if (t != null) {
             return t.getItemType();

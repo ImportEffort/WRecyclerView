@@ -2,17 +2,11 @@ package com.example.wsj.recyclerviewhelper.load;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.wsj.recyclerviewhelper.adapter.BaseQuickAdapter;
 import com.example.wsj.recyclerviewhelper.listener.LoadMoreListener;
-
-/**
- * Created by wangshijia on 2017/6/26 下午1:38.
- * Copyright (c) 2017. alpha, Inc. All rights reserved.
- */
 
 public class LoadMoreDelegate {
 
@@ -47,7 +41,7 @@ public class LoadMoreDelegate {
                             break;
                         case MotionEvent.ACTION_MOVE:
                             moveY = (int) event.getY();
-                            loadMoreEnable = moveY - downY <= 0;
+                            loadMoreEnable = moveY - downY <= mRecyclerView.getMinFlingVelocity();
                             break;
                     }
                     return false;

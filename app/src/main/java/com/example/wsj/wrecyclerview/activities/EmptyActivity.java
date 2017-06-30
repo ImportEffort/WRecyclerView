@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.wsj.recyclerviewhelper.Logcat;
 import com.example.wsj.recyclerviewhelper.adapter.BaseQuickAdapter;
 import com.example.wsj.recyclerviewhelper.base.BaseViewHolder;
+import com.example.wsj.recyclerviewhelper.listener.LoadMoreListener;
 import com.example.wsj.wrecyclerview.R;
 
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class EmptyActivity extends AppCompatActivity implements SwipeRefreshLayo
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mAdapter = new BaseQuickAdapter<String>(this, R.layout.simlpe_layout_item, new ArrayList<String>()) {
+        mAdapter = new BaseQuickAdapter<String>(R.layout.simlpe_layout_item, new ArrayList<String>()) {
             @Override
             public void convert(BaseViewHolder holder, String item, int position) {
                 holder.setText(R.id.textView,item);
@@ -57,10 +59,18 @@ public class EmptyActivity extends AppCompatActivity implements SwipeRefreshLayo
                 text.setVisibility(View.GONE);
                 loadingProgressBar.show();
                 onRefresh();
-                //可以进行网络操
             }
         });
+        mAdapter.setLoadMoreListener(new LoadMoreListener() {
+            @Override
+            public void OnLoadMore() {
+                Logcat.d("loadMore");
+                mAdapter.addItem("123");
+                mAdapter.setLoadComplete();
+            }
+        },mRecyclerView);
 
+        mAdapter.setEnableNotFullScreenLoadMore(true);
         mAdapter.setEmptyView(emptyView);
         mRecyclerView.setAdapter(mAdapter);
     }

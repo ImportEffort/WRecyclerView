@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void gotoLoadARefresh() {
-        startActivity(new Intent(this,RrefreshALoadMoreActivity.class));
+        startActivity(new Intent(this,RefreshALoadMoreActivity.class));
     }
 
     private void gotoEmptyActivity() {

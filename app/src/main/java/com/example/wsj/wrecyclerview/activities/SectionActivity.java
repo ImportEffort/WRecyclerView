@@ -73,6 +73,7 @@ public class SectionActivity extends AppCompatActivity {
 //        }, mRecyclerView);
 //
 //        sectionAdapter.setEnableNotFullScreenLoadMore(true);
+
         sectionAdapter.addFooterView(LayoutInflater.from(this).inflate(R.layout.layout_footer_view, mRecyclerView, false));
         sectionAdapter.addHeadView(LayoutInflater.from(this).inflate(R.layout.layout_head_view, mRecyclerView, false));
         mRecyclerView.setAdapter(sectionAdapter);

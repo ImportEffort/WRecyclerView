@@ -90,7 +90,7 @@ public class HeadFooterActivity extends AppCompatActivity implements View.OnClic
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        BaseQuickAdapter<String> adapter = new BaseQuickAdapter<String>(this, R.layout.simlpe_h_layout_item, getDates()) {
+        BaseQuickAdapter<String> adapter = new BaseQuickAdapter<String>(R.layout.simlpe_h_layout_item, getDates()) {
             @Override
             public void convert(BaseViewHolder holder, String item, int position) {
                 holder.setText(R.id.textView, item);

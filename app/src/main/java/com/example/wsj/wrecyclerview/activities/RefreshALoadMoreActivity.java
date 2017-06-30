@@ -3,8 +3,10 @@ package com.example.wsj.wrecyclerview.activities;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 
 import com.example.wsj.recyclerviewhelper.adapter.BaseQuickAdapter;
 import com.example.wsj.recyclerviewhelper.base.BaseViewHolder;
@@ -17,7 +19,7 @@ import java.util.TimerTask;
 
 import static com.example.wsj.wrecyclerview.R.id.recyclerView;
 
-public class RrefreshALoadMoreActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class RefreshALoadMoreActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -32,14 +34,26 @@ public class RrefreshALoadMoreActivity extends AppCompatActivity implements Swip
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        final GridLayoutManager manager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(manager);
 
-        mAdapter = new BaseQuickAdapter<String>(this, R.layout.simlpe_layout_item, getDates()) {
+
+        mAdapter = new BaseQuickAdapter<String>(R.layout.simlpe_layout_item, getDates()) {
             @Override
             public void convert(BaseViewHolder holder, String item, int position) {
                 holder.setText(R.id.textView, item);
             }
         };
+        mAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
+                if (position == 2) {
+                    return 1;
+                } else {
+                    return gridLayoutManager.getSpanCount();
+                }
+            }
+        });
 
         mAdapter.setLoadMoreListener(new LoadMoreListener() {
             @Override
@@ -49,7 +63,8 @@ public class RrefreshALoadMoreActivity extends AppCompatActivity implements Swip
 
             }
         }, mRecyclerView);
-
+        mAdapter.addHeadView(LayoutInflater.from(this).inflate(R.layout.layout_head_view,mRecyclerView,false));
+        mAdapter.addFooterView(LayoutInflater.from(this).inflate(R.layout.layout_head_view,mRecyclerView,false));
         mAdapter.setEnableNotFullScreenLoadMore(true);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setAdapter(mAdapter);
@@ -73,6 +88,7 @@ public class RrefreshALoadMoreActivity extends AppCompatActivity implements Swip
                 mAdapter.setLoadComplete();
                 isFirstLoad = false;
             } else {
+                mAdapter.addItems(getDates());
                 mAdapter.setLoadEnd();
             }
             mSwipeRefreshLayout.setEnabled(true);
